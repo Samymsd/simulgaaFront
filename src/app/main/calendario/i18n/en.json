@@ -1,0 +1,37 @@
+{
+    "CALENDAR": {
+        "CALENDAR": "Calendario Alquiler",
+        "SEARCH": "Buscar",
+        "TODAY": "Hoy",
+        "DAY": "Dia",
+        "WEEK": "Semana",
+        "MONTH": "Mes",
+        "PREVIOUS": "Anterior",
+        "NEXT": "Siguiente",
+        "ADD_EVENT": "Agregar alquiler",
+        "EDIT_EVENT": "Editar alquiler",
+        "CLOSE_DIALOG": "Cerrar dialogo",
+        "TITLE": "Titulo",
+        "ALL_DAY": "Todo el día",
+        "START_DATE": "Fecha de inicio",
+        "START_TIME": "Hora de inicio",
+        "END_DATE": "Fecha final",
+        "END_TIME": "Hora final",
+        "REPEAT": "Repetir",
+        "LOCATION": "Ubicación",
+        "NOTIFICATIONS": "Notificaciones",
+        "ADD_NOTIFICATION": "+ Agregar otra notificación",
+        "NOTES": "Notas",
+        "SAVE": "Guardar",
+        "DELETE": "Eliminar",
+        "30_MIN_BEFORE": "30 minutos antes",
+        "15_MIN_BEFORE": "15 minutos antes",
+        "30_MIN_LATER": "30 minutos después",
+        "NOMBRECLIENTE":"Nombre",
+        "DIRECCION":"Direccion",
+        "TELEFONO":"Telefono",
+        "ERRORS": {
+          "TITLE_REQUIRED": "El campo  es necesario"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "LOGIN_V2": {
+        "INTRO_TITLE": "¡Bienvenido a SiMulGAA!",
+        "INTRO_DESCRIPTION": "Cooperación en Sistemas Multiagente para la Gestión Automática de Agendas en organizaciones.",
+        "TITLE": "Ingrese a su cuenta",
+        "DESCRIPTION": "Ir a SiMulGAA",
+        "EMAIL": "Email",
+        "PASSWORD": "Password",
+        "REMEMBER_ME": "Recordar",
+        "FORGOT_PASSWORD": "¿Olvido su Password?",
+        "LOG_IN": "Acceder",
+        "OR": "O",
+        "WITH_GOOGLE": "Inicia sesión con Google",
+        "WITH_FACEBOOK": "Inicia sesión con Facebook",
+        "DONT_HAVE_ACCOUNT": "¿No tienes una cuenta?",
+        "CREATE_ACCOUNT": "Crear una cuenta",
+        "ERRORS": {
+            "EMAIL_REQUIRED": "El campo de Email es requerido",
+            "EMAIL_MUST_VALID": "El Email debe ser una dirección valida",
+            "PASSWORD_REQUIRED": "El campo de Password es requerido"
+        }
+    }
+}

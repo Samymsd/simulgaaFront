@@ -1,0 +1,12 @@
+{
+  "FORGOTPASSWORD": {
+    "TITLE": "Recupera tu contraseña",
+    "EMAIL_ADRESS": "Email",
+    "SEND_RESET_LINK": "Enviar Link",
+    "GO_BACK": "Volver a inicio de sesión",
+    "ERRORS": {
+      "EMAIL_REQUIRED": "El campo Email es obligatorio",
+      "EMAIL_MUST_VALID": "El Email debe ser una dirección válida"
+    }
+  }
+}

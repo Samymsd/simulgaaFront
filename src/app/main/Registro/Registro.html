@@ -1,0 +1,116 @@
+<div id="register-v2" layout="row" layout-align="start">
+    <div id="register-v2-intro" flex hide show-gt-sm>
+        <div class="logo md-accent-bg">
+            <span>S</span>
+        </div>
+        <div class="title" translate="REGISTER_V2.INTRO_TITLE">
+            ¡Bienvenido a SiMulGAA!
+        </div>
+        <div class="description" translate="REGISTER_V2.INTRO_DESCRIPTION">
+            Cooperación en Sistemas Multiagente para la Gestión Automática de Agendas en organizaciones.
+        </div>
+    </div>
+
+    <div id="register-v2-form-wrapper" class="flex-scrollable md-whiteframe-8dp" layout="column" flex ms-scroll>
+        <div id="register-v2-form">
+            <div class="logo md-accent-bg" hide-gt-sm>
+                <span>S</span>
+            </div>
+
+            <div class="title">Crear una cuenta</div>
+            <div class="description">Crea una cuenta para poder ingresar a SiMulGAA.
+            </div>
+
+            <form name="registerForm" novalidate>
+                <md-input-container class="md-block" md-no-float>
+                    <input name="username" ng-model="vm.user.nombres" placeholder="Nombres"
+                           translate required>
+                    <div ng-messages="registerForm.username.$error" role="alert">
+                        <div ng-message="required">
+                            <span>El campo Nombre es obligatorio</span>
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                    <input name="username" ng-model="vm.user.apellidos" placeholder="Apellidos"
+                           required>
+                    <div ng-messages="registerForm.username.$error" role="alert">
+                        <div ng-message="required">
+                            <span>El campo Apellidos es obligatorio</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="email" name="email" ng-model="vm.user.email" placeholder="Email"
+                           ng-pattern="/^.+@.+\..+$/" required>
+                    <div ng-messages="registerForm.email.$error" role="alert" multiple>
+                        <div ng-message="required">
+                            <span>El campo Email es obligatorio</span>
+                        </div>
+                        <div ng-message="pattern">
+                            <span>El Email debe ser una dirección válida</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="number" size="10" ng-model="vm.user.telefono" placeholder="Telefono"
+                           required>
+                    <div ng-messages="registerForm.username.$error" role="alert">
+                        <div ng-message="required">
+                            <span>El campo telefono es obligatorio</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <md-select ng-model="weapon" placeholder="Rol en la organizacion" class="md-no-underline">
+                        <md-option value="axe">Administrador</md-option>
+                        <md-option value="sword">Profesor</md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="password" ng-model="vm.user.password" placeholder="Password"
+                           required>
+                    <div ng-messages="registerForm.password.$error" role="alert">
+                        <div ng-message="required">
+                            <span>El campo Password es obligatorio</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="passwordConfirm" ng-model="vm.user.passwordConfirm"
+                           placeholder="Password (Confirm)"
+                           required>
+                    <div ng-messages="registerForm.passwordConfirm.$error" role="alert">
+                        <div ng-message="required">
+                            <span>Se requiere confirmar Password</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <div class="terms" layout="row" layout-align="center center">
+                    <md-checkbox name="terms" ng-model="data.cb1" aria-label="I read and accept" required></md-checkbox>
+                    <div layout="row" layout-sm="column" layout-align="start center">
+                        <span>Leer y aceptar</span>
+                        <a href="#" class="md-accent-color" >Terminos y condiciones</a>
+                    </div>
+                </div>
+
+                <md-button type="button" class="md-raised md-accent submit-button" aria-label="CREATE MY ACCOUNT"
+                           ng-disabled="registerForm.$invalid || registerForm.$pristine"
+                           ng-click="vm.createUser(vm.user)">
+                    CREAR MI CUENTA
+                </md-button>
+            </form>
+
+            <div class="login" layout="row" layout-sm="column" layout-align="center center">
+                <span class="text">¿Ya tines una cuenta?</span>
+                <a class="link" ui-sref="app.pages_auth_login-v2">Iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+</div>
