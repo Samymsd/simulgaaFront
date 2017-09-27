@@ -7,8 +7,8 @@
     angular.module('app.login')
         .factory('LoginService', LoginService);
 
-        function LoginService($http, $q){
-            var url = "http://localhost/simulgaaBackend/public/";
+        function LoginService($http, $q, PermRoleStore){
+            var url = "http://localhost/simulgaaBack/public/";
             var authServiceFactory = {};
 
             var _authentication = {
@@ -76,10 +76,20 @@
             }
 
             var verificarSesion = function () {
+                /**
                 var jwt = user._getToken();
                 if(!jwt) return false; //Si no hay un token quiere decir que no hay una sesion iniciada, revolvemos false
                 if(jwtHelper.isTokenExpired(jwt)) return 'Expiro el token'; //verificamos que el token no este vencido
                 return true;
+
+                 **/
+                var r = user._getIdUsuario();
+
+                if(r){
+                    return true;
+                }else{
+                    return false;
+                }
             }
 
 

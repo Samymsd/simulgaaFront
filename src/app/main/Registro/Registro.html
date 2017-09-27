@@ -64,10 +64,11 @@
                     </div>
                 </md-input-container>
 
-                <md-input-container class="md-block" md-no-float>
-                    <md-select ng-model="weapon" placeholder="Rol en la organizacion" class="md-no-underline">
-                        <md-option value="axe">Administrador</md-option>
-                        <md-option value="sword">Profesor</md-option>
+                <md-input-container >
+                    <md-select placeholder="Rol dentro de la organizacion" ng-model="vm.user.rol_id">
+                        <md-option ng-repeat="item in vm.roles" value="{{item.id}}">
+                            {{item.nombre_rol}}
+                        </md-option>
                     </md-select>
                 </md-input-container>
 

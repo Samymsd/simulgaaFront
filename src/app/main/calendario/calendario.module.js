@@ -25,11 +25,11 @@
             },
             data: {
                 permissions: {
-                    only: ['Profesor','Admin','Secretaria']
+                    only: ['Profesor','Administrador','Secretaria']
 
                 }
             },
-            bodyClass: 'alquiler'
+            bodyClass: 'calendario'
         });
 
         // Translation

@@ -7,7 +7,7 @@
         .controller('LoginController', LoginController);
 
     /** @ngInject */
-    function LoginController(LoginService)
+    function LoginController(LoginService,DialogFactory,$state)
     {
         var vm = this;
 
@@ -15,12 +15,20 @@
             var p = LoginService.login(vm.credenciales);
             p.then(
                 function (datos) {
-                    var p = LoginService.login(vm.credenciales);
-                    user._setToken(datos.access_token);
-                    user._setUsername(vm.credenciales.username);
-                    GetUser();
-                    DialogFactory.ShowSimpleToast("Conectado...");
-                    $state.go('app.alquiler', {});
+
+                    var respuesta = datos.data;
+                    if(respuesta.error){
+                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                    }else{
+                        user._setUsername(respuesta.datos.nombres);
+                        user._setNombreRol(respuesta.datos.nombre_rol);
+                        user._setIdUsuario(respuesta.datos.id);
+
+                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                        $state.go('app.calendario', {});
+
+                    }
+
                 },
                 function (error) {
                     DialogFactory.ShowSimpleToast(error.error_description);

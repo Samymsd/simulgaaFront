@@ -22,6 +22,11 @@
                     templateUrl: 'app/main/reporteUsuarios/reporteUsuarios.html',
                     controller : 'ReporteUsuariosController as vm'
                 }
+            }, data: {
+                permissions: {
+                    only: ['Admin','Secretaria']
+
+                }
             }
         });
 

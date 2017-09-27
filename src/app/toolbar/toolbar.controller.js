@@ -11,6 +11,8 @@
     {
         var vm = this;
 
+        vm.nombreUsuario = user._getUsername();
+
         // Data
         $rootScope.global = {
             search: ''
@@ -116,7 +118,8 @@
          */
         function logout()
         {
-            // Do logout here..
+            localStorage.clear();
+            $state.go('app.login', {});
         }
 
         /**

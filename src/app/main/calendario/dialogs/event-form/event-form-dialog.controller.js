@@ -6,10 +6,12 @@
         .controller('EventFormDialogController', EventFormDialogController);
 
     /** @ngInject */
-    function EventFormDialogController($mdDialog, dialogData,AgendaService,DialogFactory)
+    function EventFormDialogController($mdDialog, dialogData,AgendaService,DialogFactory,UserService)
     {
         var vm = this;
-        vm.alquiler = {};
+        vm.reunion = {};
+        vm.profesores = [];
+        vm.reunion.participantes = [];
 
              // Data
         vm.dialogData = dialogData;
@@ -28,7 +30,7 @@
         vm.selectedItem = null;
         vm.searchText = null;
         vm.querySearch = querySearch;
-        vm.vegetables = loadVegetables();
+        vm.vegetables = [];
         vm.selectedVegetables = [];
         vm.numberChips = [];
         vm.numberChips2 = [];
@@ -68,12 +70,39 @@
             var lowercaseQuery = angular.lowercase(query);
 
             return function filterFn(vegetable) {
-                return (vegetable._lowername.indexOf(lowercaseQuery) === 0) ||
-                    (vegetable._lowertype.indexOf(lowercaseQuery) === 0);
+                return (vegetable._lowername.indexOf(lowercaseQuery) === 0);
             };
 
         }
 
+        function GetUsers() {
+            var promiseGet = UserService.getUsers();
+            promiseGet.then(
+                function (data) {
+                    var respuesta = data.data;
+                    var datos = [];
+                    datos = respuesta.datos;
+                    datos.push({"nombres":"Todos"});
+                    datos.push({"nombres":"Solo para mi"});
+                    vm.vegetables = loadVegetables(datos);
+                    vm.profesores = angular.copy(respuesta.datos);
+
+                },
+                function (err) {
+                    console.log(JSON.stringify(err));
+                }
+            )
+        };
+
+        function loadVegetables( veggies ) {
+            return veggies.map(function (veg) {
+                veg._lowername = veg.nombres.toLowerCase();
+                return veg;
+            });
+        }
+
+
+        /**
         function loadVegetables() {
             var veggies = [
                 {
@@ -147,6 +176,8 @@
             });
         }
 
+         **/
+
         init();
 
         //////////
@@ -156,6 +187,7 @@
          */
         function init()
         {
+            GetUsers();
             // Figure out the title
             switch ( vm.dialogData.type )
             {
@@ -218,21 +250,71 @@
         function saveEvent()
         {
 
-            vm.alquiler.equipos="";
-            vm.selectedVegetables.forEach(function(datos){
+
+
+            var todos=0;
+            var solo=0;
+            for (var i=0;i<vm.selectedVegetables.length;i++){
+                if(vm.selectedVegetables[i].nombres=="Todos"){
+                    todos++;
+                }else if(vm.selectedVegetables[i].nombres=="Solo para mi"){
+                    solo++;
+                }else{
+
+                }
+            }
+
+            if(todos!=0||solo!=0){
+                if(todos!=0){
+                    for (var j=0;j<vm.profesores.length;j++){
+                      if(vm.profesores[j].id==user._getIdUsuario()){
+                          vm.reunion.participantes.push({
+                              'id': vm.profesores[j].id,
+                              'tipo_participante':"creador"
+                          });
+                      }else{
+                        if(vm.profesores[j].id){
+                            vm.reunion.participantes.push({
+                                'id': vm.profesores[j].id,
+                                'tipo_participante':"participante"
+                            });
+                        }
+                      }
+                    }
+                }else{
+                    vm.reunion.participantes.push({
+                        'id': user._getIdUsuario(),
+                        'tipo_participante':"creador"
+                    });
+                }
+            }else {
+                vm.reunion.participantes.push({
+                    'id': user._getIdUsuario(),
+                    'tipo_participante':"creador"
+                });
+                for (var k=0;k<vm.selectedVegetables.length;k++){
+                    vm.reunion.participantes.push({
+                        'id': vm.selectedVegetables[k].id,
+                        'tipo_participante':"participante"
+                    });
+                }
+
+            }
+
+
+           /* vm.selectedVegetables.forEach(function(datos){
                 for(var i=0;i<+datos.type;i++){
                     vm.alquiler.equipos += datos.name+",";
                 }
-            })
+            }) */
 
             // Convert the javascript date objects back to the moment.js dates
             var dates = {
-                start: moment.utc(vm.calendarEvent.start),
-                end  : moment.utc(vm.calendarEvent.end)
+                start: moment.utc(vm.calendarEvent.start)
             };
 
-            vm.alquiler.fechaInicial = dates.start;
-            vm.alquiler.fechaFinal = dates.end;
+            vm.reunion.fecha = dates.start;
+           // vm.alquiler.fechaFinal = dates.end;
             var p = AgendaService.createAlquiler(vm.alquiler);
             p.then(
                 function (datos) {

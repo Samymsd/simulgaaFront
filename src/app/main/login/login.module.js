@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.login', [])
+        .module('app.login', ['permission', 'permission.ui'])
         .config(config);
 
     /** @ngInject */

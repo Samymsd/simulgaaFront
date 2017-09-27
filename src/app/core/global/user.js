@@ -50,6 +50,5 @@ var user = {
 
     invitado  : function(){
         localStorage.clear();
-        user._setNombreRol('Invitado');
     }
 };

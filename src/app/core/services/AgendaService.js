@@ -9,15 +9,14 @@
         .factory('AgendaService', AgendaService);
 
     function AgendaService($http, $q){
-        var url = "http://localhost:51466/";
+        var url = "http://localhost/simulgaaBack/public/";
         var equiposServiceFactory = {};
 
-        var createAlquiler = function (getData) {
+        var createReunion = function (datos) {
             return $http({
                 method: 'POST',
-                url: url + '/api/alquiler/create',
-                headers: {'authorization': 'bearer ' + user._getToken()},
-                data: getData
+                url: url + 'api/agenda/reunion/create',
+                data: datos
             });
         };
 
@@ -74,13 +73,13 @@
             });
         };
 
-        equiposServiceFactory.createAlquiler = createAlquiler;
-        equiposServiceFactory.createAlquilerInstitucion = createAlquilerInstitucion;
-        equiposServiceFactory.getAlquileres = getAlquileres;
-        equiposServiceFactory.getAlquileresInstitucion = getAlquileresInstitucion;
-        equiposServiceFactory.getAlquileresDocente = getAlquileresDocente;
-        equiposServiceFactory.getAlquileresHoy = getAlquileresHoy;
-        equiposServiceFactory.getAlquileresInsitucionHoy = getAlquileresInsitucionHoy;
+        equiposServiceFactory.createReunion = createReunion;
+        // equiposServiceFactory.createAlquilerInstitucion = createAlquilerInstitucion;
+        //equiposServiceFactory.getAlquileres = getAlquileres;
+        //equiposServiceFactory.getAlquileresInstitucion = getAlquileresInstitucion;
+        //equiposServiceFactory.getAlquileresDocente = getAlquileresDocente;
+        //equiposServiceFactory.getAlquileresHoy = getAlquileresHoy;
+        //equiposServiceFactory.getAlquileresInsitucionHoy = getAlquileresInsitucionHoy;
 
 
         return equiposServiceFactory;

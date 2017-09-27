@@ -2,7 +2,7 @@
     <form name="eventForm" class="md-inline-form" novalidate>
         <md-toolbar class="md-accent md-hue-2">
             <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
-                <span class="title">{{vm.dialogTitle}}</span>
+                <span class="title">Crear nueva reunion</span>
                 <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
                            translate-attr-aria-label="CALENDAR.CLOSE_DIALOG">
                     <md-icon md-font-icon="icon-close"></md-icon>
@@ -11,58 +11,87 @@
         </md-toolbar>
 
         <md-dialog-content ms-scroll>
-            <md-input-container class="md-block">
-                <label  translate="CALENDAR.NOMBRECLIENTE" >Nombre </label>
-                <input name="title" ng-model="vm.alquiler.nombreCliente" required md-autofocus>
+
+            <md-input-container class="md-block" flex md-no-float style="padding-left: 230px;" >
+                <label style="padding-left: 320px;">Fecha: </label>
+                <md-datepicker ng-model="vm.calendarEvent.start"
+                               md-placeholder="Start Date" style="width: 500px;" ms-datepicker-fix="500px;"> </md-datepicker>
+            </md-input-container>
+
+
+            <div layout="row" class="date-row">
+
+                <md-input-container class="no-errors-spacer" flex md-no-float>
+                    <input ng-model="vm.reunion.hora_inicial"
+                           placeholder="Hora Inicial" md-autofocus>
+                </md-input-container>
+                <md-input-container class="no-errors-spacer" flex md-no-float>
+                    <input ng-model="vm.reunion.hora_final"
+                           placeholder="Hora Final" >
+                </md-input-container>
+            </div>
+
+
+
+            <md-input-container class="md-icon-float md-block">
+
+                <label >Asunto </label>
+                <md-icon md-svg-src="" class="icon-bullhorn"></md-icon>
+                <input name="title" ng-model="vm.reunion.asunto" required >
                 <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
                     <div ng-message="required">
-                        <span translate="CALENDAR.ERRORS.TITLE_REQUIRED">El nombre de contacto es requerido</span>
+                        <span >El asunto es requerido</span>
+                    </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                    <label>Descripcion </label>
+                    <md-icon md-svg-src="" class="icon-bullhorn"></md-icon>
+                    <input name="title" ng-model="vm.reunion.descripcion" required>
+                    <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
+                        <div ng-message="required">
+                            <span>La descripcion es requerida</span>
+                        </div>
+                    </div>
+                </md-input-container>
+            <md-input-container class="md-block">
+                <label>Lugar </label>
+                <md-icon md-svg-src="" class="icon-bullhorn"></md-icon>
+                <input name="title" ng-model="vm.reunion.lugar" required>
+                <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
+                    <div ng-message="required">
+                        <span>El lugar es requerido</span>
                     </div>
                 </div>
             </md-input-container>
 
 
-                <md-input-container class="md-block">
-                    <label translate="CALENDAR.DIRECCION" >Direccion </label>
-                    <input name="title" ng-model="vm.alquiler.Direccion" required md-autofocus>
+
+            <div layout="row" class="date-row">
+                <md-input-container class="md-block" flex md-no-float >
+                    <label></label>
+                    <md-select placeholder="Prioriodad" ng-model="vm.user.rol_id" >
+                        <md-option value="alta">
+                            Alta
+                        </md-option>
+                        <md-option value="baja">
+                            Baja
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+
+                <md-input-container class="md-block" flex md-no-float>
+                    <label>Numero de participantes minimos </label>
+                    <input type="number" name="title" ng-model="vm.reunion.participacion_minima" required>
                     <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
                         <div ng-message="required">
-                            <span translate="CALENDAR.ERRORS.TITLE_REQUIRED" >Necesita una direccion</span>
+                            <span>El numero de participantes minimos en la reunion es requerido</span>
                         </div>
                     </div>
                 </md-input-container>
-
-
-                    <md-input-container class="md-block">
-                        <label translate="CALENDAR.TELEFONO" >Telefono </label>
-                        <input type="number" name="title" ng-model="vm.alquiler.Telefono" required md-autofocus>
-                        <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
-                            <div ng-message="required">
-                                <span translate="CALENDAR.ERRORS.TITLE_REQUIRED">Necesita un Telefono</span>
-                            </div>
-                        </div>
-                    </md-input-container>
-
-            <div layout="row" class="date-row">
-                <md-datepicker ng-model="vm.calendarEvent.start" md-placeholder="Start Date"></md-datepicker>
-
-                <md-input-container class="no-errors-spacer" flex md-no-float>
-                    <input ng-model="vm.alquiler.fechaInicial" placeholder="Start Time" translate
-                           translate-attr-placeholder="CALENDAR.START_TIME">
-                </md-input-container>
             </div>
 
-            <div layout="row" class="date-row">
-                <md-datepicker ng-model="vm.calendarEvent.end" md-placeholder="End Date"></md-datepicker>
-
-                <md-input-container class="no-errors-spacer" flex md-no-float>
-                    <input ng-model="vm.alquiler.fechaFinal" placeholder="End Time" translate
-                           translate-attr-placeholder="CALENDAR.END_TIME">
-                </md-input-container>
-            </div>
-
-
-            <h2 class="md-title">¿Qué equipos requiere?</h2>
 
             <md-chips ng-model="vm.selectedVegetables" md-autocomplete-snap
                       md-transform-chip="vm.transformChip($chip)"
@@ -72,12 +101,12 @@
                         md-search-text="vm.searchText"
                         md-items="item in vm.querySearch(vm.searchText)"
                         md-item-text="item.name"
-                        placeholder="Cantidad de equipos">
-                    <span md-highlight-text="vm.searchText">{{item.name}} :: {{item.texto}}</span>
+                        placeholder="Participantes">
+                    <span md-highlight-text="vm.searchText">{{item.nombres}}</span>
                 </md-autocomplete>
                 <md-chip-template>
         <span>
-          <strong>{{$chip.name}}</strong>
+          <strong>{{$chip.nombres}}</strong>
           <em>({{$chip.type}})</em>
         </span>
                 </md-chip-template>

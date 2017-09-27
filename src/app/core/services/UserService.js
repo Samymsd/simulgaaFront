@@ -10,7 +10,7 @@
 
     function UserService($http, $q){
 
-        var url = "http://localhost/simulgaaBackend/public/";
+        var url = "http://localhost/simulgaaBack/public/";
 
         var equiposServiceFactory = {};
 
@@ -36,8 +36,21 @@
         };
 
 
+        var getRoles = function () {
+            var respuesta = $http({
+                method: 'GET',
+                url: url + 'api/rol',
+
+            });
+            return respuesta;
+        };
+
+
+
+
         equiposServiceFactory.createUser = createUser;
         equiposServiceFactory.getUsers = getUsers;
+        equiposServiceFactory.getRoles = getRoles;
 
 
         return equiposServiceFactory;

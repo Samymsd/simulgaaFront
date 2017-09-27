@@ -22,7 +22,7 @@
 
             <form name="loginForm" novalidate>
                 <md-input-container class="md-block" md-no-float>
-                    <input type="email" name="email" ng-model="vm.form.email" placeholder="Email"
+                    <input type="email" name="email" ng-model="vm.credenciales.email" placeholder="Email"
                            translate translate-attr-placeholder="LOGIN_V2.EMAIL"
                            ng-pattern="/^.+@.+\..+$/" required>
                     <div ng-messages="loginForm.email.$error" role="alert" multiple>
@@ -36,7 +36,8 @@
                 </md-input-container>
 
                 <md-input-container class="md-block" md-no-float>
-                    <input type="password" name="password" ng-model="vm.form.password" placeholder="Password"
+                    <input type="password" name="password"
+                           ng-model="vm.credenciales.password" placeholder="Password"
                            translate translate-attr-placeholder="LOGIN_V2.PASSWORD"
                            required>
                     <div ng-messages="loginForm.password.$error" role="alert">
@@ -56,9 +57,10 @@
                        translate="LOGIN_V2.FORGOT_PASSWORD">¿Olvido su Password?</a>
                 </div>
 
-                <md-button type="submit" class="md-raised md-accent submit-button" aria-label="LOG IN"
+                <md-button type="button" class="md-raised md-accent submit-button" aria-label="LOG IN"
                            ng-disabled="loginForm.$invalid || loginForm.$pristine"
-                           translate="LOGIN_V2.LOG_IN" translate-attr-aria-label="LOGIN_V2.LOG_IN">
+                           translate="LOGIN_V2.LOG_IN" translate-attr-aria-label="LOGIN_V2.LOG_IN"
+                           ng-click="vm.login()">
                     Acceder
                 </md-button>
             </form>
@@ -67,6 +69,7 @@
                 <span class="text" translate="LOGIN_V2.OR">O</span>
             </div>
 
+            <!--
             <div layout="column" layout-align="start center">
                 <md-button class="md-raised google">
                     <div layout="row" layout-align="center center">
@@ -86,10 +89,11 @@
                     </div>
                 </md-button>
             </div>
+            -->
 
             <div class="register" layout="row" layout-sm="column" layout-align="center center">
                 <span class="text" translate="LOGIN_V2.DONT_HAVE_ACCOUNT">¿No tienes una cuenta?</span>
-                <a class="link" ui-sref="app.pages_auth_register-v2" translate="LOGIN_V2.CREATE_ACCOUNT">Crear una cuenta</a>
+                <a class="link" ui-sref="app.Registro" translate="LOGIN_V2.CREATE_ACCOUNT">Crear una cuenta</a>
             </div>
         </div>
     </div>
