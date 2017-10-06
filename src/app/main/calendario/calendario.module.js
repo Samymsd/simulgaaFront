@@ -37,7 +37,7 @@
 
         // Navigation
         msNavigationServiceProvider.saveItem('alquiler', {
-            title : 'Mi Agenda',
+            title : 'Mi Calendario',
             icon  : 'icon-calendar-today',
             state : 'app.calendario',
             weight: 1

@@ -28,7 +28,9 @@
             'app.olvidoSuContraseña',
             'app.calendario',
             'app.dialog',
-            'app.reporteUsuarios'
+            'app.reporteUsuarios',
+            'app.reporteReuniones',
+            'app.reporteReunionesCreadas'
 
 
 

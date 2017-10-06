@@ -6,19 +6,23 @@
         .controller('EventDetailDialogController', EventDetailDialogController);
 
     /** @ngInject */
-    function EventDetailDialogController($mdDialog, calendarEvent, showEventFormDialog, event)
+    function EventDetailDialogController($mdDialog, calendarEvent, showEventFormDialog, event,AgendaService)
     {
         var vm = this;
 
         // Data
-        vm.calendarEvent = calendarEvent;
+        vm.calendarEvent = AgendaService.getReunionSeleccionada();
 
         // Methods
         vm.editEvent = editEvent;
         vm.closeDialog = closeDialog;
-
+        vm.getFecha =  getFecha;
         //////////
 
+
+        function  getFecha(fecha) {
+            return  (fecha);
+        }
         /**
          * Close the dialog
          */
@@ -26,6 +30,7 @@
         {
             $mdDialog.hide();
         }
+
 
         /**
          * Edit the calendar event

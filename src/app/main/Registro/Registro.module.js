@@ -29,11 +29,15 @@
         $translatePartialLoaderProvider.addPart('app/main/Registro');
 
         // Navigation
+
+        /**
         msNavigationServiceProvider.saveItem('Usuario.Registro', {
             title : 'Registrarse',
             state : 'app.Registro',
             weight: 1
         });
+
+         **/
     }
 
 })();

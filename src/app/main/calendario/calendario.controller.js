@@ -7,7 +7,7 @@
         .controller('CalendarioController', CalendarioController);
 
     /** @ngInject */
-    function CalendarioController($mdDialog, $document)
+    function CalendarioController($mdDialog, $document,AgendaService)
     {
         var vm = this;
         // Data
@@ -16,11 +16,12 @@
         var m = date.getMonth();
         var y = date.getFullYear();
 
+        vm.lista = [];
 
-
-        /**
         vm.events = [
+
             [
+                /**
                 {
                     id   : 1,
                     title: 'All Day Event',
@@ -111,9 +112,38 @@
                     start: new Date(y, m, d + 22, 4, 0),
                     end  : new Date(y, m, d + 24, 4, 0)
                 }
+                 */
             ]
+
+
         ];
- **/
+
+        GetReuniones();
+
+        function GetReuniones() {
+            var promiseGet = AgendaService.getReunionesPorIdUsuario(user._getIdUsuario());
+            promiseGet.then(
+                function (data) {
+                    var respuesta = data.data;
+                    vm.lista = respuesta.datos;
+
+                    for(var i in vm.lista){
+                        vm.events[0].push({
+                            id   : vm.lista [i].id,
+                            title: vm.lista [i].asunto,
+                            start: new Date(vm.lista [i].fecha+" "+vm.lista[i].hora_inicial),
+                            end  : null
+                        });
+                    }
+
+                },
+                function (err) {
+                    console.log(JSON.stringify(err));
+                }
+            )
+        };
+
+
         vm.calendarUiConfig = {
             calendar: {
                 editable          : true,
@@ -172,6 +202,14 @@
          */
         function eventDetail(calendarEvent, e)
         {
+            var reunion;
+            for(var i in vm.lista){
+               if(vm.lista[i].id==calendarEvent.id){
+                   reunion =vm.lista[i];
+                   break;
+               }
+            }
+            var promiseGet = AgendaService.setReunionSeleccionada(reunion);
             showEventDetailDialog(calendarEvent, e);
         }
 

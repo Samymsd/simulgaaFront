@@ -3,10 +3,11 @@
     'use strict';
 
     angular
-        .module('app.reporteUsuarios',
+        .module('app.reporteReuniones',
             [
                 // 3rd Party Dependencies
                // 'xeditable'
+                'datatables'
             ]
         )
         .config(config);
@@ -15,16 +16,16 @@
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
     {
 
-        $stateProvider.state('app.reporteUsuarios', {
-            url    : '/reporteUsuarios',
+        $stateProvider.state('app.reporteReuniones', {
+            url    : '/reporteReuniones',
             views  : {
                 'content@app': {
-                    templateUrl: 'app/main/reporteUsuarios/reporteUsuarios.html',
-                    controller : 'ReporteUsuariosController as vm'
+                    templateUrl: 'app/main/reporteReuniones/reporteReuniones.html',
+                    controller : 'ReporteReunionesController as vm'
                 }
             }, data: {
                 permissions: {
-                    only: ['Administrador','Secretaria']
+                    only: ['Profesor','Administrador','Secretaria']
                 }
             }
         });
@@ -34,13 +35,11 @@
 
 
         // Navigation
-
-
-        msNavigationServiceProvider.saveItem('reporteUsuarios', {
-            title : 'Reporte Usuarios',
-            icon  : 'icon-account-multiple',
-            state : 'app.reporteUsuarios',
-            weight: 4
+        msNavigationServiceProvider.saveItem('ReporteUsuarios', {
+            title : 'Mis Participaciones',
+            icon  : 'icon-bell-ring-outline',
+            state : 'app.reporteReuniones',
+            weight: 3
         });
 
     }

@@ -30,11 +30,13 @@
 
         // Navigation
 
+        /**
         msNavigationServiceProvider.saveItem('Usuario.Login', {
             title : 'Login',
             state : 'app.login',
             weight: 2
         });
+         **/
 
 
     }

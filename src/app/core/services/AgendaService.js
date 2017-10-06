@@ -12,6 +12,8 @@
         var url = "http://localhost/simulgaaBack/public/";
         var equiposServiceFactory = {};
 
+        var ReunionSeleccionada = {};
+
         var createReunion = function (datos) {
             return $http({
                 method: 'POST',
@@ -20,48 +22,49 @@
             });
         };
 
-        var createAlquilerInstitucion = function (getData) {
-            return $http({
-                method: 'POST',
-                url: url + '/api/alquilerInstitucion/create',
-                headers: {'authorization': 'bearer ' + user._getToken()},
-                data: getData
-            });
-        };
 
-        var getAlquileres = function (getData) {
-            return $http({
-                method: 'POST',
-                url: url + '/api/alquiler/AlquileresFecha',
-                headers: {'authorization': 'bearer ' + user._getToken()},
-                data: getData
-            });
-        };
-
-        var getAlquileresInstitucion = function (getData) {
-            return $http({
-                method: 'POST',
-                url: url + '/api/alquilerInstitucion/AlquileresFecha',
-                headers: {'authorization': 'bearer ' + user._getToken()},
-                data: getData
-            });
-        };
-
-        var getAlquileresDocente = function (getData) {
-            return $http({
-                method: 'POST',
-                url: url + '/api/alquilerInstitucion/AlquileresDocente',
-                headers: {'authorization': 'bearer ' + user._getToken()},
-                data: getData
-            });
-        };
-
-        var getAlquileresHoy = function () {
+        var getReunionesPorIdUsuario = function (id) {
             return $http({
                 method: 'GET',
-                url: url + '/api/alquiler/Hoy',
-                headers: {'authorization': 'bearer ' + user._getToken()}
+                url: url + 'api/agenda/reunion/'+ id
+            });
+        };
 
+        var getParticipaciones = function (id) {
+            return $http({
+                method: 'GET',
+                url: url + 'api/agenda/reunion/participaciones/'+ id
+            });
+        };
+
+        var getReunionesCreadas = function (id) {
+            return $http({
+                method: 'GET',
+                url: url + 'api/agenda/reunion/creaciones/'+ id
+            });
+        };
+
+        var getReunionSeleccionada = function () {
+            return ReunionSeleccionada;
+        };
+
+
+        var setReunionSeleccionada = function (getData) {
+            ReunionSeleccionada =getData;
+        };
+        var updateReunion = function (getData) {
+            return $http({
+                method: 'PUT',
+                url: url + 'api/agenda/reunion/update/'+getData.id,
+                data: getData
+            });
+        };
+
+        var UpdateParticipacion = function (data) {
+            return $http({
+                method: 'POST',
+                url: url + 'api/agenda/reunion/participacion',
+                data: data
             });
         };
 
@@ -74,12 +77,13 @@
         };
 
         equiposServiceFactory.createReunion = createReunion;
-        // equiposServiceFactory.createAlquilerInstitucion = createAlquilerInstitucion;
-        //equiposServiceFactory.getAlquileres = getAlquileres;
-        //equiposServiceFactory.getAlquileresInstitucion = getAlquileresInstitucion;
-        //equiposServiceFactory.getAlquileresDocente = getAlquileresDocente;
-        //equiposServiceFactory.getAlquileresHoy = getAlquileresHoy;
-        //equiposServiceFactory.getAlquileresInsitucionHoy = getAlquileresInsitucionHoy;
+        equiposServiceFactory.getReunionesPorIdUsuario = getReunionesPorIdUsuario;
+        equiposServiceFactory.getReunionSeleccionada = getReunionSeleccionada;
+        equiposServiceFactory.setReunionSeleccionada = setReunionSeleccionada;
+        equiposServiceFactory.updateReunion = updateReunion;
+        equiposServiceFactory.getReunionesCreadas = getReunionesCreadas;
+        equiposServiceFactory.getParticipaciones = getParticipaciones;
+        equiposServiceFactory.UpdateParticipacion = UpdateParticipacion;
 
 
         return equiposServiceFactory;

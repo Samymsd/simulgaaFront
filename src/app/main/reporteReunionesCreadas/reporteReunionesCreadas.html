@@ -1,0 +1,69 @@
+<div class="page-layout simple fullwidth doc-page" layout="column">
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row"  style="color:white;"layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s32" style="color:white;"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" style="color:white;" class="s32 separator"></md-icon>
+                <span class="parent" style="color:white;"><h2>Mis Reuniones</h2></span>
+            </div>
+            <div class="title">Mis Eventos Creados</div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" layout="column">
+
+        <div class="card md-whiteframe-4dp" layout="column">
+
+            <table class="table table-responsive table-hover dataTable scrollable"
+                   datatable="ng" dt-options="vm.dtOptions">
+                <thead>
+                <tr>
+                    <th>#</i></th>
+                    <th>Asunto</th>
+                    <th>Estado</th>
+                    <th style="width: 20%;">Descripcion</th>
+                    <th>Lugar</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicial</th>
+                    <th>Hora Final</th>
+                    <th>Prioridad</th>
+                    <th>Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="tipo in vm.lista">
+                    <td>{{$index + 1}}</td>
+                    <td>{{tipo.asunto}}</td>
+                    <td>{{tipo.estado}}</td>
+                    <td>{{tipo.descripcion}}</td>
+                    <td>{{tipo.lugar}}</td>
+                    <td>{{tipo.fecha | date}}</td>
+                    <td>{{tipo.hora_inicial| date}}</td>
+                    <td>{{tipo.hora_final| date}}</td>
+                    <td>{{tipo.prioridad}}</td>
+                    <td>
+                        <md-select placeholder="Accion"
+                                   ng-model="tipo.estado"
+                                   ng-change="vm.UpdateEstado(tipo)">
+                            <md-option value="Cancelada">
+                                Cancelar
+                            </md-option>
+                            <md-option value="Aplazada">
+                                Aplazar
+                            </md-option>
+                        </md-select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

@@ -1,101 +1,57 @@
-<div id="contacts" class="page-layout simple left-sidenav inner-sidenav">
+<div class="page-layout simple fullwidth doc-page" layout="column">
 
     <!-- HEADER -->
-    <div class="header md-accent-bg" layout="row" layout-align="space-between center">
-
-        <!-- APP TITLE -->
-        <div layout="row" layout-align="start center">
-            <md-button class="md-icon-button sidenav-toggle"
-                       aria-label="Toggle sidenav">
-                <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
-            </md-button>
-
-            <div class="logo" layout="row" layout-align="start center">
-                <span class="logo-icon">
-                    <md-icon md-font-icon="icon-account-box" class="s24"></md-icon>
-                </span>
-                <span class="logo-text">Lista de integrantes de la organizacion</span>
+    <div class="header md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="center start">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s32"  style="color:white;"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s32 separator"  style="color:white;"></md-icon>
+                <span class="parent" style="color:white;"> <h3>Administracion de usuarios</h3></span>
             </div>
+            <div class="title">Mis Participaciones</div>
         </div>
-        <!-- / APP TITLE -->
-
-        <!-- SEARCH -->
-        <div class="search-input-wrapper" layout="row" layout-align="start center">
-            <label for="search">
-                <md-icon md-font-icon="icon-magnify"></md-icon>
-            </label>
-            <md-input-container md-no-float class="m-0">
-                <input id="search" placeholder="Buscar por nombre" type="text" ng-model="vm.buscar"
-                       ng-change="vm.buscarPorNombre(vm.buscar)">
-            </md-input-container>
-        </div>
-        <!-- / SEARCH -->
-
     </div>
     <!-- / HEADER -->
 
-
     <!-- CONTENT -->
-    <div class="content" md-background-bg layout="row" layout-align="start start">
+    <div class="content" layout="column">
 
-           <!-- MAIN -->
-        <div class="main scrollable" ms-scroll>
-
-            <!-- CONTACT LIST -->
-            <md-list class="contacts-list">
-
-                <!-- CONTACT ITEM -->
-                <table class="table table-responsive table-hover dataTable" datatable="ng" dt-options="dtOptions">
-                    <thead>
-                        <tr>
-                            <th>#</i></th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>E-mail</th>
-                            <th>Telefono</th>
-                            <th>Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="tipo in vm.lista">
-                        <td>{{$index + 1}}</td>
-                        <td>{{tipo.nombres}}</td>
-                        <td>{{tipo.apellidos}}</td>
-                        <td>{{tipo.email}}</td>
-                        <td>{{tipo.telefono}}</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-pencil fa-2x p-w-xs editar-icon"
-                                   uib-tooltip="Editar" ng-click="vm.CargarDatosTipoIngreso(tipo)"></i>
-                                <i class="fa fa-trash fa-2x p-w-xs eliminar-icon"
-                                   uib-tooltip="Eliminar" ng-click="vm.DeleteTipoIngreso(tipo)"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <!-- CONTACT ITEM -->
-
-            </md-list>
-            <!-- / CONTACT LIST -->
-
-            <!-- NO RESULTS -->
-            <md-list-item class="no-results md-white-bg" ng-show="vm.lista.length === 0">
-                <p translate="CONTACTS.NO_RESULTS">No results..</p>
-            </md-list-item>
-            <!-- / NO RESULTS -->
+        <div class="card md-whiteframe-4dp" layout="column">
+            <table class="table table-responsive table-hover dataTable" datatable="ng" dt-options="dtOptions">
+                <thead>
+                <tr>
+                    <th>#</i></th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>E-mail</th>
+                    <th>Telefono</th>
+                    <th>Rol</th>
+                    <th>Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="tipo in vm.lista">
+                    <td>{{$index + 1}}</td>
+                    <td>{{tipo.nombres}}</td>
+                    <td>{{tipo.apellidos}}</td>
+                    <td>{{tipo.email}}</td>
+                    <td>{{tipo.telefono}}</td>
+                    <td>{{tipo.nombre_rol}}</td>
+                    <td>
+                        <div>
+                            <i class="fa fa-pencil fa-2x p-w-xs editar-icon"
+                               uib-tooltip="Editar" ng-click="vm.CargarDatosTipoIngreso(tipo)"></i>
+                            <i class="fa fa-trash fa-2x p-w-xs eliminar-icon"
+                               uib-tooltip="Eliminar" ng-click="vm.DeleteTipoIngreso(tipo)"></i>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
-        <!-- / MAIN -->
 
     </div>
     <!-- / CONTENT -->
-
-    <!-- ADD CONTACT BUTTON -->
-    <md-button class="md-fab md-accent md-icon-button" id="add-contact-button" ng-href="/registro"
-               aria-label="add contact">
-        <md-icon md-font-icon="icon-account-plus" style="margin-top: 20px;"></md-icon>
-    </md-button>
-    <!-- / ADD CONTACT BUTTON -->
 
 </div>

@@ -29,11 +29,13 @@
         $translatePartialLoaderProvider.addPart('app/main/olvidoSuContraseña');
 
         // Navigation
+        /**
         msNavigationServiceProvider.saveItem('Usuario.olvidoSuContraseña', {
             title : 'olvidoSuContraseña',
             state : 'app.olvidoSuContraseña',
             weight: 3
         });
+         **/
     }
 
 })();

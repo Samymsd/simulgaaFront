@@ -9,6 +9,8 @@
     function EventFormDialogController($mdDialog, dialogData,AgendaService,DialogFactory,UserService)
     {
         var vm = this;
+        vm.crear = false;
+        vm.editar = false;
         vm.reunion = {};
         vm.profesores = [];
         vm.reunion.participantes = [];
@@ -22,6 +24,7 @@
         vm.saveEvent = saveEvent;
         vm.removeEvent = removeEvent;
         vm.closeDialog = closeDialog;
+        vm.editarEvento = editarEvento;
 
        // console.log(closeDialog);
 
@@ -84,6 +87,12 @@
                     datos = respuesta.datos;
                     datos.push({"nombres":"Todos"});
                     datos.push({"nombres":"Solo para mi"});
+                    for(var i in datos){
+                        if(user._getIdUsuario()== datos[i].id){
+                            datos.splice( i, 1);
+                            break;
+                        }
+                    }
                     vm.vegetables = loadVegetables(datos);
                     vm.profesores = angular.copy(respuesta.datos);
 
@@ -193,10 +202,12 @@
             {
                 case 'add' :
                     vm.dialogTitle = 'Solicitar Servicio';
+                    vm.crear = true;
                     break;
 
                 case 'edit' :
                     vm.dialogTitle = 'Add Event';
+                    vm.editar = true;
                     break;
 
                 default:
@@ -210,10 +221,50 @@
                 // to make sure we are not going to brake FullCalendar
                 vm.calendarEvent = angular.copy(vm.dialogData.calendarEvent);
 
+                vm.reunion = AgendaService.getReunionSeleccionada();
+
+                var separado = vm.reunion.hora_inicial.split(':');
+                vm.reunion.hora_inicial ="";
+                var cont =0;
+                var aux =0;
+                for(var i in separado){
+                   if(cont<2){
+                       if(aux==0){
+                           vm.reunion.hora_inicial =  vm.reunion.hora_inicial+separado[i]+":";
+                           aux++;
+                       }else{
+                           vm.reunion.hora_inicial =  vm.reunion.hora_inicial+separado[i];
+                       }
+                       cont++;
+                   }else{
+
+                   }
+                }
+
+                var separado2 = vm.reunion.hora_final.split(':');
+                vm.reunion.hora_final ="";
+                var cont =0;
+                var aux =0;
+                for(var i in separado2){
+                    if(cont<2){
+                        if(aux==0){
+                            vm.reunion.hora_final =  vm.reunion.hora_final+separado2[i]+":";
+                            aux++;
+                        }else{
+                            vm.reunion.hora_final =  vm.reunion.hora_final+separado2[i];
+                        }
+                        cont++;
+                    }else{
+
+                    }
+                }
+
+
+
                 // Convert moment.js dates to javascript date object
-                if ( moment.isMoment(vm.calendarEvent.start) )
+                if ( moment.isMoment(vm.reunion.fecha) )
                 {
-                    vm.calendarEvent.start = vm.calendarEvent.start.toDate();
+                    vm.reunion.fecha = vm.reunion.fecha.toDate();
                 }
 
                 if ( moment.isMoment(vm.calendarEvent.end) )
@@ -221,6 +272,13 @@
                     vm.calendarEvent.end = vm.calendarEvent.end.toDate();
                     vm.calendarEvent.end.set
                 }
+
+
+                vm.calendarEvent = {
+                    start        : vm.reunion.fecha,
+                    end          : vm.dialogData.end,
+                    notifications: []
+                };
             }
             // Add
             else
@@ -241,7 +299,37 @@
                     end          : vm.dialogData.end,
                     notifications: []
                 };
+
+                vm.calendarEvent.start
             }
+        }
+
+
+        function editarEvento(data) {
+            var dates = {
+                start: moment.utc(vm.reunion.fecha)
+            };
+
+            vm.reunion.fecha = dates.start.format("YYYY/MM/DD");
+            var p = AgendaService.updateReunion(vm.reunion);
+            p.then(
+                function (datos) {
+                    var respuesta = datos.data;
+
+                    if(respuesta.error){
+                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
+
+                    }else{
+                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                        closeDialog();
+                    }
+
+                },
+                function (error) {
+                    DialogFactory.ShowSimpleToast(error.error_description);
+
+                }
+            )
         }
 
         /**
@@ -266,12 +354,14 @@
 
             if(todos!=0||solo!=0){
                 if(todos!=0){
+                    vm.reunion.participantes.push({
+                        'id': user._getIdUsuario(),
+                        'tipo_participante':"creador"
+                    });
                     for (var j=0;j<vm.profesores.length;j++){
+
                       if(vm.profesores[j].id==user._getIdUsuario()){
-                          vm.reunion.participantes.push({
-                              'id': vm.profesores[j].id,
-                              'tipo_participante':"creador"
-                          });
+
                       }else{
                         if(vm.profesores[j].id){
                             vm.reunion.participantes.push({
@@ -313,16 +403,16 @@
                 start: moment.utc(vm.calendarEvent.start)
             };
 
-            vm.reunion.fecha = dates.start;
+            vm.reunion.fecha = dates.start.format("YYYY/MM/DD");
            // vm.alquiler.fechaFinal = dates.end;
-            var p = AgendaService.createAlquiler(vm.alquiler);
+            var p = AgendaService.createReunion(vm.reunion);
             p.then(
                 function (datos) {
                     var respuesta = datos.data;
 
-
-                    if(respuesta.error.length>0){
+                    if(respuesta.error){
                         DialogFactory.ShowSimpleToast(respuesta.mensaje);
+
                     }else{
                         DialogFactory.ShowSimpleToast(respuesta.mensaje);
                         closeDialog();
