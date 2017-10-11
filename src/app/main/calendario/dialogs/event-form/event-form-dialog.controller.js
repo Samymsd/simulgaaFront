@@ -15,9 +15,11 @@
         vm.profesores = [];
         vm.reunion.participantes = [];
 
+
              // Data
         vm.dialogData = dialogData;
         vm.dialogData.start = vm.dialogData.end;
+         vm.recargar =  vm.reload;
         vm.notifications = ['15 minutes before', '30 minutes before', '1 hour before'];
 
         // Methods
@@ -338,8 +340,6 @@
         function saveEvent()
         {
 
-
-
             var todos=0;
             var solo=0;
             for (var i=0;i<vm.selectedVegetables.length;i++){
@@ -403,27 +403,45 @@
                 start: moment.utc(vm.calendarEvent.start)
             };
 
+            dates.start.subtract(1, 'day');
             vm.reunion.fecha = dates.start.format("YYYY/MM/DD");
            // vm.alquiler.fechaFinal = dates.end;
-            var p = AgendaService.createReunion(vm.reunion);
-            p.then(
+
+
+          if(!vm.reunion.hastaNegociacion){
+            vm.reunion.hastaNegociacion=1;
+          }
+
+          if(validarFechaDelaReunion()){
+            if(validarFechaRepetir()){
+              var p = AgendaService.createReunion(vm.reunion);
+              p.then(
                 function (datos) {
-                    var respuesta = datos.data;
+                  var respuesta = datos.data;
 
-                    if(respuesta.error){
-                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                  if(respuesta.error){
+                    DialogFactory.ShowSimpleToast(respuesta.mensaje);
 
-                    }else{
-                        DialogFactory.ShowSimpleToast(respuesta.mensaje);
-                        closeDialog();
-                    }
+                  }else{
+                    DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                    closeDialog();
+                  }
 
                 },
                 function (error) {
-                    DialogFactory.ShowSimpleToast(error.error_description);
+                  DialogFactory.ShowSimpleToast(error.error_description);
 
                 }
-            )
+              )
+            }else{
+              DialogFactory.ShowSimpleToast("Error en la fechas");
+            }
+          }else{
+            DialogFactory.ShowSimpleToast("Error en la fechas");
+          }
+
+
+
             /**
             var response = {
                 type         : vm.dialogData.type,
@@ -453,7 +471,43 @@
          */
         function closeDialog()
         {
+          vm.recargar;
             $mdDialog.cancel();
         }
+
+
+        function validarFechaDelaReunion() {
+
+          vm.fecha_actual = new Date();
+
+          var fecha  = new Date(vm.reunion.fecha);
+
+          if(fecha>=vm.fecha_actual){
+           return true;
+          }
+
+          return false;
+
+
+        }
+
+
+      function validarFechaRepetir() {
+
+        var fecha1  = new Date(vm.reunion.hastaRepetir);
+        var fecha2  = new Date(vm.reunion.fecha);
+        if(vm.reunion.hastaRepetir){
+
+          if(fecha1>=fecha2){
+            return true;
+          }
+        }else{
+          return true;
+        }
+
+        return false;
+
+
+      }
     }
 })();

@@ -18,7 +18,7 @@
 
         <div class="card md-whiteframe-4dp" layout="column">
 
-            <table class="table table-responsive table-hover dataTable scrollable"
+            <table class="table table-responsive table-hover dataTable "
                    datatable="ng" dt-options="vm.dtOptions">
                 <thead>
                 <tr>
@@ -37,25 +37,52 @@
                 <tbody>
                 <tr ng-repeat="tipo in vm.lista">
                     <td>{{$index + 1}}</td>
-                    <td>{{tipo.asunto}}</td>
-                    <td>{{tipo.estado}}</td>
+                    <td>
+                        <strong> {{tipo.asunto}}</strong>
+                    </td>
+                    <td>
+                        <md-icon md-font-icon="icon-close-circle"
+                                 class="s32"
+                                 ng-if="tipo.estado=='Cancelada'"
+                                 style="color:red;"
+                                 title="Cancelada"></md-icon>
+                        <md-icon md-font-icon="icon-clock"
+                                 class="s32" style="color:darkslategray;"
+                                 ng-if="tipo.estado=='En proceso'"
+                                 title="En proceso"></md-icon>
+                        <md-icon md-font-icon="icon-library-books"
+                                 class="s32" style="color:cornflowerblue;"
+                                 ng-if="tipo.estado=='Programada'"
+                                 title="Programada">
+
+                        </md-icon>
+                    </td>
                     <td>{{tipo.descripcion}}</td>
                     <td>{{tipo.lugar}}</td>
                     <td>{{tipo.fecha | date}}</td>
                     <td>{{tipo.hora_inicial| date}}</td>
                     <td>{{tipo.hora_final| date}}</td>
-                    <td>{{tipo.prioridad}}</td>
                     <td>
-                        <md-select placeholder="Accion"
-                                   ng-model="tipo.estado"
-                                   ng-change="vm.UpdateEstado(tipo)">
-                            <md-option value="Cancelada">
-                                Cancelar
-                            </md-option>
-                            <md-option value="Aplazada">
-                                Aplazar
-                            </md-option>
-                        </md-select>
+                        <md-icon md-font-icon="icon-arrow-up-bold-circle"
+                                 class="s32"
+                                 ng-if="tipo.prioridad=='alta'"
+                                 style="color:red;"
+                                 title="Alta"></md-icon>
+                        <md-icon md-font-icon="icon-arrow-down-bold-circle"
+                                 class="s32" style="color:darkslategray;"
+                                 ng-if="tipo.prioridad!='alta'"
+                                 title="Baja"></md-icon>
+
+                       </td>
+                    <td>
+                        <md-button class="md-raised md-warn"
+                                   ng-if="tipo.estado!='Cancelada'"
+                                   ng-click="vm.UpdateEstado(tipo)">Cancelar
+                        </md-button>
+                        <md-button ng-disabled="true"
+                                   class="md-raised md-primary"
+                                   ng-if="tipo.estado=='Cancelada'"
+                                   ng-if="tipo.estado!='Cancelada'">Cancelada</md-button>
                     </td>
                 </tr>
                 </tbody>

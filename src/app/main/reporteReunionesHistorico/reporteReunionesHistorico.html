@@ -9,14 +9,39 @@
                 <span class="parent" style="color:white;"> <h2>Mis Reuniones</h2></span>
             </div>
             <div class="title">Mis Participaciones</div>
+
+
+
         </div>
+
+
     </div>
     <!-- / HEADER -->
 
-    <!-- CONTENT -->
+
+
+  <!-- CONTENT -->
     <div class="content" layout="column">
 
+      <div class="fondo">
+        <md-input-container >
+          <label>Fecha Inicial: </label>
+          <md-datepicker ng-model="vm.calendarEvent.start"
+                         md-placeholder="Start Date">
+          </md-datepicker>
+        </md-input-container>
+        <md-input-container>
+          <label>Fecha Final: </label>
+          <md-datepicker ng-model="vm.calendarEvent.start"
+                         md-placeholder="Start Date">
+          </md-datepicker>
+        </md-input-container>
+        <md-button class="md-raised">Consultar</md-button>
+      </div>
+
         <div class="card md-whiteframe-4dp" layout="column">
+
+
 
             <table class="table table-responsive table-hover dataTable"
                    datatable="ng" dt-options="vm.dtOptions">

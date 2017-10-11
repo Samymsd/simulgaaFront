@@ -60,6 +60,7 @@
 
 
         function UpdateEstado(data) {
+            data.estado="Cancelada";
             var p = AgendaService.updateReunion(data);
             p.then(
                 function (datos) {
@@ -67,8 +68,7 @@
 
                     if(respuesta.error){
                         DialogFactory.ShowSimpleToast(respuesta.mensaje);
-
-
+                        GetReuniones();
                     }else{
                         DialogFactory.ShowSimpleToast(respuesta.mensaje);
 

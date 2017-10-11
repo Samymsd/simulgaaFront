@@ -30,7 +30,8 @@
             'app.dialog',
             'app.reporteUsuarios',
             'app.reporteReuniones',
-            'app.reporteReunionesCreadas'
+            'app.reporteReunionesCreadas',
+           'app.reporteReunionesHistorico'
 
 
 

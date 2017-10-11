@@ -15,6 +15,7 @@
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear();
+        vm.GetReuniones = GetReuniones;
 
         vm.lista = [];
 
@@ -275,7 +276,8 @@
                 type         : type,
                 calendarEvent: calendarEvent,
                 start        : start,
-                end          : end
+                end          : end,
+                reload :     vm.GetReuniones()
             };
 
             $mdDialog.show({
