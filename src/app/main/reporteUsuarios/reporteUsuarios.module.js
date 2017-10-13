@@ -35,13 +35,13 @@
 
         // Navigation
 
-
+/*
         msNavigationServiceProvider.saveItem('reporteUsuarios', {
             title : 'Reporte Usuarios',
             icon  : 'icon-account-multiple',
             state : 'app.reporteUsuarios',
             weight: 4
-        });
+        });  */
 
     }
 

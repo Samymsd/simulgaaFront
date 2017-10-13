@@ -17,19 +17,25 @@
 
 
         vm.createUser = function (usuario) {
+
+          if(vm.user.passwordConfirm==vm.user.password){
             var p = UserService.createUser(usuario);
             p.then(
-                function (datos) {
-                   var respuesta = datos.data;
+              function (datos) {
+                var respuesta = datos.data;
 
-                    DialogFactory.ShowSimpleToast(respuesta.mensaje);
-                    $state.go('app.calendario', {});
-                },
-                function (error) {
-                    DialogFactory.ShowSimpleToast(error.error_description);
+                DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                $state.go('app.login', {});
+              },
+              function (error) {
+                DialogFactory.ShowSimpleToast(error.error_description);
 
-                }
+              }
             )
+          }else{
+            DialogFactory.ShowSimpleToast("Contraseñas no coinciden");
+          }
+
 
         }
 

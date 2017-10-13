@@ -276,8 +276,7 @@
                 type         : type,
                 calendarEvent: calendarEvent,
                 start        : start,
-                end          : end,
-                reload :     vm.GetReuniones()
+                end          : end
             };
 
             $mdDialog.show({

@@ -27,13 +27,18 @@
                 </md-button>
 
                 <md-menu-content width="3">
-                    <md-menu-item class="md-indent" ui-sref="app.pages_profile">
-                        <md-icon md-font-icon="icon-account" class="icon"></md-icon>
-                        <md-button>My Profile</md-button>
+                    <md-menu-item class="md-indent" ui-sref="app.calendario">
+                        <md-icon md-font-icon="icon-calendar-today" class="icon"></md-icon>
+                        <md-button>Mi Calendario</md-button>
                     </md-menu-item>
 
-                    <md-menu-divider></md-menu-divider>
 
+
+                  <md-menu-item class="md-indent" ui-sref="app.reporteUsuarios" ng-if="vm.nombreRol=='Administrador'">
+                    <md-icon md-font-icon="icon-account" class="icon"></md-icon>
+                    <md-button>Administrar Usuarios</md-button>
+                  </md-menu-item>
+                  <md-menu-divider></md-menu-divider>
                     <md-menu-item class="md-indent">
                         <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
                         <md-button ng-click="vm.logout()">Logout</md-button>

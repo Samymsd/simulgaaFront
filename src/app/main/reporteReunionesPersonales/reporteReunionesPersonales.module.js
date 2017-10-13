@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('app.reporteReunionesHistorico',
+        .module('app.reporteReunionesPersonales',
             [
                 // 3rd Party Dependencies
                // 'xeditable'
@@ -16,12 +16,12 @@
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
     {
 
-        $stateProvider.state('app.reporteReunionesHistorico', {
-            url    : '/reporteReunionesHistorico',
+        $stateProvider.state('app.reporteReunionesPersonales', {
+            url    : '/reporteReunionesPersonales',
             views  : {
                 'content@app': {
-                    templateUrl: 'app/main/reporteReunionesHistorico/reporteReunionesHistorico.html',
-                    controller : 'ReporteReunionesHistoricoController as vm'
+                    templateUrl: 'app/main/reporteReunionesPersonales/reporteReunionesPersonales.html',
+                    controller : 'ReporteReunionesPersonalesController as vm'
                 }
             }, data: {
                 permissions: {
@@ -35,10 +35,10 @@
 
 
         // Navigation
-        msNavigationServiceProvider.saveItem('Consultar Historico', {
-            title : 'Consultar Historico',
+        msNavigationServiceProvider.saveItem('ConsultarEventosPersonales', {
+            title : 'Eventos Personales',
             icon  : 'icon-bell-ring-outline',
-            state : 'app.reporteReunionesHistorico',
+            state : 'app.reporteReunionesPersonales',
             weight: 3
         });
 

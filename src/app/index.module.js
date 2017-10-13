@@ -31,7 +31,7 @@
             'app.reporteUsuarios',
             'app.reporteReuniones',
             'app.reporteReunionesCreadas',
-           'app.reporteReunionesHistorico'
+           'app.reporteReunionesPersonales'
 
 
 

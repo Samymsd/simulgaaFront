@@ -3,11 +3,11 @@
     'use strict';
 
     angular
-        .module('app.reporteReunionesHistorico')
-        .controller('ReporteReunionesHistoricoController', ReporteReunionesHistoricoController);
+        .module('app.reporteReunionesPersonales')
+        .controller('ReporteReunionesPersonalesController', ReporteReunionesPersonalesController);
 
     /** @ngInject */
-    function ReporteReunionesHistoricoController($scope, $mdSidenav, AgendaService, msUtils, $mdDialog, $document,DialogFactory)
+    function ReporteReunionesPersonalesController($scope, $mdSidenav, AgendaService, msUtils, $mdDialog, $document,DialogFactory)
     {
 
         var vm = this;
