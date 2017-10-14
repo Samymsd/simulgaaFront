@@ -26,6 +26,7 @@
                     <th>E-mail</th>
                     <th>Telefono</th>
                     <th>Rol</th>
+                    <th>Estado</th>
                     <th>Opciones</th>
                 </tr>
                 </thead>
@@ -38,12 +39,25 @@
                     <td>{{tipo.telefono}}</td>
                     <td>{{tipo.nombre_rol}}</td>
                     <td>
-                        <div>
-                            <i class="fa fa-pencil fa-2x p-w-xs editar-icon"
-                               uib-tooltip="Editar" ng-click="vm.CargarDatosTipoIngreso(tipo)"></i>
-                            <i class="fa fa-trash fa-2x p-w-xs eliminar-icon"
-                               uib-tooltip="Eliminar" ng-click="vm.DeleteTipoIngreso(tipo)"></i>
-                        </div>
+                      <md-icon md-font-icon="icon-check-bookmark"
+                               class="s32"
+                               ng-if="tipo.estado=='on'"
+                               style="color:green;"
+                               title="Activo"></md-icon>
+
+                      <md-icon md-font-icon="icon-close-circle"
+                               class="s32"
+                               ng-if="tipo.estado=='off'"
+                               style="color:red;"
+                               title="Cancelada"></md-icon>
+                    </td>
+                    <td>
+                      <md-button class="md-raised md-warn"
+                                 ng-if="tipo.estado=='on'"
+                                 ng-click="vm.OnOffUsuarios(tipo)">Desactivar</md-button>
+                      <md-button class="md-raised "
+                                 style="color:green;" ng-if="tipo.estado=='off'"
+                                 ng-click="vm.OnOffUsuarios(tipo)">Activar</md-button>
                     </td>
                 </tr>
                 </tbody>

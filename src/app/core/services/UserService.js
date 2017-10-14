@@ -45,12 +45,24 @@
             return respuesta;
         };
 
+      var UpdateUsuario = function (user) {
+        var respuesta = $http({
+          method: 'PUT',
+          url: url + 'api/user/'+user.id,
+          data: user
+
+        });
+        return respuesta;
+      };
+
+
 
 
 
         equiposServiceFactory.createUser = createUser;
         equiposServiceFactory.getUsers = getUsers;
         equiposServiceFactory.getRoles = getRoles;
+        equiposServiceFactory.UpdateUsuario =UpdateUsuario;
 
 
         return equiposServiceFactory;

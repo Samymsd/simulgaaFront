@@ -37,6 +37,7 @@
             });
         };
 
+
         var getReunionesCreadas = function (id) {
             return $http({
                 method: 'GET',
@@ -44,7 +45,23 @@
             });
         };
 
-        var getReunionSeleccionada = function () {
+      var getReunionesHistorico = function (id) {
+        return $http({
+          method: 'GET',
+          url: url + 'api/agenda/reunion/historico/'+ id
+        });
+      };
+
+
+      var getReunionesCreacionesPersonales = function (id) {
+        return $http({
+          method: 'GET',
+          url: url + 'api/agenda/reunion/creacionesPersonales/'+ id
+        });
+      };
+
+
+      var getReunionSeleccionada = function () {
             return ReunionSeleccionada;
         };
 
@@ -84,6 +101,9 @@
         equiposServiceFactory.getReunionesCreadas = getReunionesCreadas;
         equiposServiceFactory.getParticipaciones = getParticipaciones;
         equiposServiceFactory.UpdateParticipacion = UpdateParticipacion;
+      equiposServiceFactory.getReunionesCreacionesPersonales =getReunionesCreacionesPersonales;
+      equiposServiceFactory.getReunionesHistorico = getReunionesHistorico;
+
 
 
         return equiposServiceFactory;

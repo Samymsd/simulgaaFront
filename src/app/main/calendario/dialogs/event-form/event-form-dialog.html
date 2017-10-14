@@ -213,14 +213,24 @@
           </div>
         </md-input-container>
 
-        <div layout="row" class="date-row">
-          <md-input-container class="md-block" flex md-no-float>
+        <div layout="row" class="date-row" >
+          <md-input-container class="md-block" flex md-no-float ng-if="vm.nombreRol=='Administrador'">
             <md-icon md-font-icon="icon-alert-circle"></md-icon>
             <label></label>
             <md-select placeholder="Prioriodad" ng-model="vm.reunion.prioridad">
               <md-option value="alta">
                 Alta
               </md-option>
+              <md-option value="baja">
+                Baja
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex md-no-float ng-if="vm.nombreRol!='Administrador'">
+            <md-icon md-font-icon="icon-alert-circle"></md-icon>
+            <label></label>
+            <md-select placeholder="Prioriodad" ng-model="vm.reunion.prioridad">
               <md-option value="baja">
                 Baja
               </md-option>
@@ -276,7 +286,7 @@
 
   <form name="eventForm" class="md-inline-form" novalidate ng-if="vm.crear!=true">
 
-    <md-toolbar class="md-accent md-hue-2">
+    <md-toolbar class="md-accent md-hue-2" ng-if="vm.reunion.tipo=='organizacion'">
       <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
         <span class="title">Editar reunion</span>
         <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
@@ -285,7 +295,8 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content ms-scroll>
+
+    <md-dialog-content ms-scroll ng-if="vm.reunion.tipo=='organizacion'">
 
       <md-input-container class=" md-block">
         <label>Asunto</label>
@@ -360,6 +371,83 @@
       </md-dialog-actions>
 
     </md-dialog-content>
+
+
+    <md-toolbar class="md-accent md-hue-2" ng-if="vm.reunion.tipo!='organizacion'">
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <span class="title" >Editar Eventos Personal</span>
+        <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
+                   translate-attr-aria-label="CALENDAR.CLOSE_DIALOG">
+          <md-icon md-font-icon="icon-close"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll ng-if="vm.reunion.tipo!='organizacion'">
+
+      <div layout="row" class="date-row">
+
+        <md-icon md-font-icon="icon-alarm"></md-icon>
+        <md-input-container class="no-errors-spacer" flex md-no-float>
+          <input ng-model="vm.reunion.hora_inicial"
+                 placeholder="Hora inicial ej: 10:00" md-autofocus
+                 pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+        </md-input-container>
+
+
+        <md-icon md-font-icon="icon-alarm"></md-icon>
+        <md-input-container class="no-errors-spacer" flex md-no-float>
+          <input ng-model="vm.reunion.hora_final"
+                 placeholder="Hora inicial ej: 16:00"
+                 pattern="^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$">
+        </md-input-container>
+      </div>
+
+      <md-input-container class=" md-block">
+        <label>Asunto</label>
+        <md-icon md-font-icon="icon-bookmark-outline-plus"></md-icon>
+        <input name="title" ng-model="vm.reunion.asunto" required>
+        <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
+          <div ng-message="required">
+            <span>El asunto es requerido</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Descripcion</label>
+        <md-icon md-font-icon=" icon-arrow-right-bold-circle-outline"></md-icon>
+        <input name="title" ng-model="vm.reunion.descripcion" required>
+        <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
+          <div ng-message="required">
+            <span>La descripcion es requerida</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Lugar</label>
+        <md-icon md-font-icon="icon-map-marker"></md-icon>
+        <input name="title" ng-model="vm.reunion.lugar" required>
+        <div ng-messages="eventForm.title.$error" ng-show="eventForm.title.$touched" role="alert">
+          <div ng-message="required">
+            <span>El lugar es requerido</span>
+          </div>
+        </div>
+      </md-input-container>
+
+      <md-dialog-actions layout="row" layout-align="space-between center">
+        <md-button ng-click="vm.editarEvento(vm.reunion)" class="save-button md-accent md-raised" aria-label="SAVE"
+                   ng-disabled="eventForm.$invalid || eventForm.$pristine"
+                   translate="CALENDAR.SAVE"
+                   translate-attr-aria-label="CALENDAR.SAVE">
+          Guardar
+        </md-button>
+      </md-dialog-actions>
+
+    </md-dialog-content>
+
+
 
   </form>
 </md-dialog>

@@ -10,6 +10,8 @@
     function CalendarioController($mdDialog, $document,AgendaService)
     {
         var vm = this;
+
+
         // Data
         var date = new Date();
         var d = date.getDate();
@@ -122,6 +124,7 @@
         GetReuniones();
 
         function GetReuniones() {
+          vm.events[0].length = 0;
             var promiseGet = AgendaService.getReunionesPorIdUsuario(user._getIdUsuario());
             promiseGet.then(
                 function (data) {

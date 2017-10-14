@@ -15,6 +15,8 @@
 
     vm.horario = false;
 
+    vm.nombreRol = user._getNombreRol();
+
 
     // Data
     vm.dialogData = dialogData;
@@ -263,6 +265,8 @@
         if (moment.isMoment(vm.reunion.fecha)) {
           vm.reunion.fecha = vm.reunion.fecha.toDate();
         }
+
+        vm.reunion.fecha = new Date(vm.reunion.fecha);
 
         if (moment.isMoment(vm.calendarEvent.end)) {
           vm.calendarEvent.end = vm.calendarEvent.end.toDate();

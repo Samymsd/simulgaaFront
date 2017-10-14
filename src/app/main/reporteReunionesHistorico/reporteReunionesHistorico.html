@@ -6,10 +6,10 @@
       <div class="breadcrumb" layout="row"  style="color:white;"layout-align="start center">
         <md-icon md-font-icon="icon-home" class="s32" style="color:white;"></md-icon>
         <md-icon md-font-icon="icon-chevron-right" style="color:white;" class="s32 separator"></md-icon>
-        <span class="parent" style="color:white;"><h2>Mis Eventos</h2></span>
+        <span class="parent" style="color:white;"><h2>Mi Historial</h2></span>
       </div>
-      <div class="title">Mis Eventos  Personales </div>
-      <span class="parent" style="color:white;"> <h5>Eventos vigentes para esta semana</h5></span>
+      <div class="title">Todas Mis Reuniones </div>
+      <span class="parent" style="color:white;"> <h5>Historico de reuniones del usuario</h5></span>
     </div>
   </div>
   <!-- / HEADER -->
@@ -32,7 +32,6 @@
           <th>Hora Inicial</th>
           <th>Hora Final</th>
           <th>Prioridad</th>
-          <th>Opciones</th>
         </tr>
         </thead>
         <tbody>
@@ -75,16 +74,7 @@
                      title="Baja"></md-icon>
 
           </td>
-          <td>
-            <md-button class="md-raised md-warn"
-                       ng-if="tipo.estado!='Cancelada'"
-                       ng-click="vm.UpdateEstado(tipo)">Cancelar
-            </md-button>
-            <md-button ng-disabled="true"
-                       class="md-raised md-primary"
-                       ng-if="tipo.estado=='Cancelada'"
-                       ng-if="tipo.estado!='Cancelada'">Cancelada</md-button>
-          </td>
+
         </tr>
         </tbody>
       </table>

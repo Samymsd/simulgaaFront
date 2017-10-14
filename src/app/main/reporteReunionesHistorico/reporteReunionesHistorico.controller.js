@@ -3,11 +3,11 @@
     'use strict';
 
     angular
-        .module('app.reporteReunionesPersonales')
-        .controller('ReporteReunionesPersonalesController', ReporteReunionesPersonalesController);
+        .module('app.reporteReunionesHistorico')
+        .controller('ReporteReunionesHistoricoController', ReporteReunionesHistoricoController);
 
     /** @ngInject */
-    function ReporteReunionesPersonalesController($scope, $mdSidenav, AgendaService, msUtils, $mdDialog, $document,DialogFactory)
+    function ReporteReunionesHistoricoController($scope, $mdSidenav, AgendaService, msUtils, $mdDialog, $document,DialogFactory)
     {
       var vm = this;
 
@@ -20,7 +20,7 @@
       GetReuniones();
 
       function GetReuniones() {
-        var promiseGet = AgendaService.getReunionesCreacionesPersonales(user._getIdUsuario());
+        var promiseGet = AgendaService.getReunionesHistorico(user._getIdUsuario());
         promiseGet.then(
           function (data) {
             var respuesta = data.data;
