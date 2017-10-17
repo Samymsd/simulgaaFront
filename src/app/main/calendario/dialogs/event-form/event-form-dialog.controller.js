@@ -308,25 +308,56 @@
       };
 
       vm.reunion.fecha = dates.start.format("YYYY/MM/DD");
-      var p = AgendaService.updateReunion(vm.reunion);
-      p.then(
-        function (datos) {
-          var respuesta = datos.data;
 
-          if (respuesta.error) {
-            DialogFactory.ShowSimpleToast(respuesta.mensaje);
 
-          } else {
-            DialogFactory.ShowSimpleToast(respuesta.mensaje);
-            closeDialog();
-          }
+      if(vm.reunion.tipo=="organizacion"){
+        if(validarHorasDelaReunion(vm.reunion.hora_inicial,vm.reunion.hora_final)){
+          var p = AgendaService.updateReunion(vm.reunion);
+          p.then(
+            function (datos) {
+              var respuesta = datos.data;
 
-        },
-        function (error) {
-          DialogFactory.ShowSimpleToast(error.error_description);
+              if (respuesta.error) {
+                DialogFactory.ShowSimpleToast(respuesta.mensaje);
 
+              } else {
+                DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                closeDialog();
+              }
+
+            },
+            function (error) {
+              DialogFactory.ShowSimpleToast(error.error_description);
+
+            }
+          )
+        }else{
+          DialogFactory.ShowSimpleToast("Error en las fechas");
         }
-      )
+      }else{
+        var p = AgendaService.updateReunion(vm.reunion);
+        p.then(
+          function (datos) {
+            var respuesta = datos.data;
+
+            if (respuesta.error) {
+              DialogFactory.ShowSimpleToast(respuesta.mensaje);
+
+            } else {
+              DialogFactory.ShowSimpleToast(respuesta.mensaje);
+              closeDialog();
+            }
+
+          },
+          function (error) {
+            DialogFactory.ShowSimpleToast(error.error_description);
+
+          }
+        )
+      }
+
+
+
     }
 
     /**
@@ -410,25 +441,30 @@
       if (validarFechaDelaReunion()) {
         if (validarFechaRepetir()) {
           if (validarParticipantes()) {
-            var p = AgendaService.createReunion(vm.reunion);
-            p.then(
-              function (datos) {
-                var respuesta = datos.data;
+            if(validarHorasDelaReunion(vm.reunion.hora_inicial,vm.reunion.hora_final)){
+              var p = AgendaService.createReunion(vm.reunion);
+              p.then(
+                function (datos) {
+                  var respuesta = datos.data;
 
-                if (respuesta.error) {
-                  DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                  if (respuesta.error) {
+                    DialogFactory.ShowSimpleToast(respuesta.mensaje);
 
-                } else {
-                  DialogFactory.ShowSimpleToast(respuesta.mensaje);
-                  closeDialog();
+                  } else {
+                    DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                    closeDialog();
+                  }
+
+                },
+                function (error) {
+                 // DialogFactory.ShowSimpleToast(error.error_description);
+                  console.log(error);
                 }
+              )
+            }else{
+              DialogFactory.ShowSimpleToast("Error en las horas");
+            }
 
-              },
-              function (error) {
-                DialogFactory.ShowSimpleToast(error.error_description);
-
-              }
-            )
           } else {
             DialogFactory.ShowSimpleToast("Error en el numero de participantes minimos");
           }
@@ -491,25 +527,30 @@
 
       if (validarFechaDelaReunion()) {
         if (validarFechaRepetir()) {
-          var p = AgendaService.createReunion(vm.reunion);
-          p.then(
-            function (datos) {
-              var respuesta = datos.data;
+          if(validarHorasDelaReunion(vm.reunion.hora_inicial,vm.reunion.hora_final)){
+            var p = AgendaService.createReunion(vm.reunion);
+            p.then(
+              function (datos) {
+                var respuesta = datos.data;
 
-              if (respuesta.error) {
-                DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                if (respuesta.error) {
+                  DialogFactory.ShowSimpleToast(respuesta.mensaje);
 
-              } else {
-                DialogFactory.ShowSimpleToast(respuesta.mensaje);
-                closeDialog();
+                } else {
+                  DialogFactory.ShowSimpleToast(respuesta.mensaje);
+                  closeDialog();
+                }
+
+              },
+              function (error) {
+                DialogFactory.ShowSimpleToast(error.error_description);
+
               }
+            )
+          }else{
+            DialogFactory.ShowSimpleToast("Error en las horas");
+          }
 
-            },
-            function (error) {
-              DialogFactory.ShowSimpleToast(error.error_description);
-
-            }
-          )
         } else {
           DialogFactory.ShowSimpleToast("Error en la fechas");
         }
@@ -558,6 +599,31 @@
       if (fecha >= vm.fecha_actual) {
         return true;
       }
+
+      return false;
+
+
+    }
+
+
+    function validarHorasDelaReunion(hora_ini,hora_fin) {
+
+      var hora_inicial =hora_ini.split(":");
+      var hora_final =hora_fin.split(":");
+
+
+        if(parseInt(hora_inicial[0])==parseInt(hora_final[0])){
+
+          if(parseInt(hora_inicial[1])==parseInt(hora_final[1])){
+            return false;
+          }else if(parseInt(hora_inicial[1])<parseInt(hora_final[1])){
+            return true;
+          }
+        }else if(parseInt(hora_inicial[0])<parseInt(hora_final[0])){
+          return true;
+        }else{
+          return false;
+        }
 
       return false;
 
