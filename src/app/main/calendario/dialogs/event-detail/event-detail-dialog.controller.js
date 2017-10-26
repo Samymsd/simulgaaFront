@@ -13,6 +13,8 @@
         // Data
         vm.calendarEvent = AgendaService.getReunionSeleccionada();
 
+
+
         // Methods
         vm.editEvent = editEvent;
         vm.closeDialog = closeDialog;
